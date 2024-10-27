@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝗙𝗥𝗘𝗘 𝗫𝗩𝗜𝗗𝗘𝗢𝗦 𝗗𝗔𝗦𝗛𝗕𝗢𝗔𝗥𝗗 𝗕𝗬 𝗭𝗖𝗗𝗦 𝗣𝗛</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/6H0B1qv/xvids.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #222831, #393e46);
+            color: #eeeeee;
+            overflow-x: hidden;
+            padding: 0 20px;
+        }
+        header {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .search-input {
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 10px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            transition: border-color 0.3s;
+        }
+        .search-input:focus {
+            border-color: #c89f3c;
+            outline: none;
+        }
+        .search-button {
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .search-button:hover {
+            background-color: #c89f3c;
+            transform: scale(1.05);
+        }
+        #video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+        .video-card {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .video-card:hover {
+            transform: scale(1.05);
+        }
+        .video-thumbnail img {
+            width: 100%;
+            height: auto;
+            border-bottom: 2px solid #d4af37;
+            transition: opacity 0.3s;
+        }
+        .video-thumbnail:hover img {
+            opacity: 0.9;
+        }
+        .video-info {
+            padding: 10px;
+        }
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .video-uploader {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+        }
+        #age-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            color: white;
+            text-align: center;
+            display: none;
+        }
+        #age-overlay button {
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #age-overlay button:hover {
+            background-color: #c89f3c;
+            transform: scale(1.05);
+        }
+        #show-more-button {
+            background-color: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #show-more-button:hover {
+            background-color: #c89f3c;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div id="age-overlay">
+        <div>
+            <h2>𝗔𝗚𝗘 𝗩𝗘𝗥𝗜𝗙𝗜𝗖𝗔𝗧𝗜𝗢𝗡</h2>
+            <p>Are you 18 or older?</p>
+            <button id="age-confirm">Yes, I am 18+</button>
+            <button id="age-deny">No, I am under 18</button>
+        </div>
+    </div>
+    <header>
+        <h1 class="text-4xl font-bold text-teal-700">𝗫𝗩𝗜𝗗𝗘𝗢𝗦 𝗕𝗬 𝗭𝗖𝗗𝗦 𝗣𝗛</h1>
+        <p class="text-lg">FREE XVIDEOS [ NO ADS ].</p>
+    </header>
+    <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search for videos...">
+        <button id="search-button" class="search-button">Search</button>
+        <button id="back-to-home" class="search-button hidden">Back to Home</button>
+    </div>
+    <div id="video-container"></div>
+    <button id="show-more-button" class="hidden">Show More</button>
+    <footer>
+        <p>&copy; DEKU API</p>
+        <p>CREATED BY <a href="https://www.facebook.com/marjhuncutieee/" target="_blank" class="text-teal-400">MARJHUN BAYLON</a></p>
+    </footer>
+    <div id="loading" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-teal-400 text-xl hidden">Loading...</div>
+    <div id="popup-player" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-90 rounded-lg shadow-lg overflow-hidden z-50 text-center">
+        <video id="video-player" controls class="w-full"></video>
+        <div>
+            <button class="bg-teal-400 text-white rounded-lg px-4 py-2 m-2" id="download-video">Download</button>
+            <button class="bg-teal-400 text-white rounded-lg px-4 py-2 m-2" id="close-popup">Close</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        const api = 'https://dekux.giize.com/prn';
+        const vContainer = document.getElementById('video-container');
+        const searchInp = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-button');
+        const showMoreBtn = document.getElementById('show-more-button');
+        const popupPlayer = document.getElementById('popup-player');
+        const vidPlayer = document.getElementById('video-player');
+        const closePopup = document.getElementById('close-popup');
+        const downloadBtn = document.getElementById('download-video');
+        const loading = document.getElementById('loading');
+        const bckHome = document.getElementById('back-to-home');
+        const ageOverlay = document.getElementById('age-overlay');
+        const ageConfirm = document.getElementById('age-confirm');
+        const ageDeny = document.getElementById('age-deny');
+
+        let currentPage = 0;
+        const videosPerPage = 10; 
+
+        ageConfirm.onclick = () => {
+            ageOverlay.style.display = 'none';
+            loadHome();
+        };
+
+        ageDeny.onclick = () => {
+            window.close();
+        };
+
+        async function fetchVid(endpoint) {
+            try {
+                const response = await fetch(`${api}${endpoint}`);
+                const data = await response.json();
+                return data.result;
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+                return [];
+            }
+        }
+
+        function createCard(video) {
+            const card = document.createElement('div');
+            card.className = 'video-card';
+            card.innerHTML = `
+                <div class="video-thumbnail">
+                    <img src="${video.thumbnail}" alt="${video.title}">
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">${video.title}</h3>
+                    <p class="video-uploader">${video.uploaderName || 'Unknown uploader'}</p>
+                </div>
+            `;
+            card.addEventListener('click', () => playVideo(video.video, video.title));
+            return card;
+        }
+
+        function display(videos) {
+            videos.forEach(video => {
+                const card = createCard(video);
+                if (card) vContainer.appendChild(card);
+            });
+        }
+
+        async function loadHome() {
+            showLoading();
+            const videos = await fetchVid(`/home?page=${currentPage}&limit=${videosPerPage}`);
+            hideLoading();
+            display(videos);
+            if (videos.length === videosPerPage) {
+                showMoreBtn.classList.remove('hidden');
+            } else {
+                showMoreBtn.classList.add('hidden');
+            }
+        }
+
+        async function loadMoreVideos() {
+            currentPage++;
+            await loadHome();
+        }
+
+        async function searchVid() {
+            const query = searchInp.value.trim();
+            if (query) {
+                showLoading();
+                currentPage = 0; 
+                const videos = await fetchVid(`/search/${encodeURIComponent(query)}?page=${currentPage}&limit=${videosPerPage}`);
+                hideLoading();
+                vContainer.innerHTML = ''; 
+                display(videos);
+                bckHome.style.display = 'block';
+                if (videos.length === videosPerPage) {
+                    showMoreBtn.classList.remove('hidden');
+                } else {
+                    showMoreBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        async function playVideo(videoUrl, title) {
+            try {
+                showLoading();
+                const response = await fetch(`${api}/download?url=${encodeURIComponent(videoUrl)}`);
+                const data = await response.json();
+                const videoInfo = data.result;
+                const videoSrc = videoInfo.contentUrl.HD_Quality || videoInfo.contentUrl.Default_Quality || videoInfo.contentUrl.Low_Quality;
+
+                if (videoSrc) {
+                    vidPlayer.src = videoSrc;
+                    popupPlayer.style.display = 'block';
+                    vidPlayer.play();
+                    downloadBtn.onclick = () => downloadVideo(videoSrc, title);
+                }
+            } catch (error) {
+                console.error('Error playing video:', error);
+                hideLoading();
+            }
+        }
+
+        function downloadVideo(videoSrc, title) {
+            fetch(videoSrc)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    const safeTitle = title.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+                    a.href = url;
+                    a.download = `${safeTitle}.mp4`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                });
+        }
+
+        function closeVid() {
+            vidPlayer.pause();
+            vidPlayer.src = '';
+            popupPlayer.style.display = 'none';
+            loading.style.display = 'none';
+        }
+
+        function showLoading() {
+            loading.style.display = 'block';
+        }
+
+        function hideLoading() {
+            loading.style.display = 'none';
+        }
+
+        bckHome.addEventListener('click', () => {
+            currentPage = 0;
+            loadHome();
+            bckHome.style.display = 'none';
+        });
+
+        showMoreBtn.addEventListener('click', loadMoreVideos);
+        closePopup.addEventListener('click', closeVid);
+        searchBtn.addEventListener('click', searchVid);
+        ageOverlay.style.display = 'flex';
+    </script>
+</body>
+</html>
